@@ -143,24 +143,45 @@ class MyError(Exception):
 
 # print(MyError.__base__)
 
-num = 1
-try:
-    if num == 0:
-        raise ValueError
-    elif num == 1:
-        raise MyError
-    elif num == 2:
-        raise Exception
-    else:
-        raise
+# num = 1
+# try:
+#     if num == 0:
+#         raise ValueError
+#     elif num == 1:
+#         raise MyError
+#     elif num == 2:
+#         raise Exception
+#     else:
+#         raise
 
-except ValueError:
-    print("value error")
-except MyError:
-    print("My error")
-except Exception:
-    print("Regular ol' exception")
-except:
-    print("All exceptions")
-else:
-    print("All is well")
+# except ValueError:
+#     print("value error")
+# except MyError:
+#     print("My error")
+# except Exception:
+#     print("Regular ol' exception")
+# except:
+#     print("All exceptions")
+# else:
+#     print("All is well")
+
+people = [{"name":"Anton","age":30},
+          {"name":"Karl","age":5},
+          {"name":"Erik","age":31},
+          {"name":"Francis","age":67}]
+
+print(people)
+
+names = [person['name'] for person in people]
+ages = [person['age'] for person in people]
+#letters = [letter for letter in (person['name'] for person in people)]
+
+all_letters = [letter for name in names for letter in name]
+
+print(names, ages)
+print(all_letters)
+
+my_people = {person["name"]:person["age"] for person in people}
+my_other_people = {names[x]:ages[x] for x in range(len(names))}
+print(my_people)
+print(my_other_people)
