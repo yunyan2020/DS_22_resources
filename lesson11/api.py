@@ -2,7 +2,8 @@ from typing import List
 from fastapi import FastAPI
 from pydantic import BaseModel
 
-from db import DB
+# from db import DB
+from mssql_db import DB
 
 
 class Todo(BaseModel):
@@ -12,7 +13,9 @@ class Todo(BaseModel):
 
 
 app = FastAPI()
-db = DB("todo.db")
+# db = DB("todo.db")
+db = DB()
+
 app.curr_id = 1
 app.todos: List[Todo] = []
 
@@ -70,10 +73,10 @@ def delete_todo(id: int):
 def update_todo(id: int, new_todo: Todo):
     update_todo_query = """
     UPDATE todo
-    SET title = ? , description = ?
+    SET title = ?, description = ?
     WHERE id = ?
     """
-    db.call_db(update_todo_query,id,new_todo.title,new_todo.description)
+    db.call_db(update_todo_query,new_todo.title,new_todo.description,id)
     # for todo in app.todos:
     #     if todo.id == id:
     #         todo.title = new_todo.title
